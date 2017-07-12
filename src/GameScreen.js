@@ -1,22 +1,47 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import store from './store'
 import PersonThumbnail from './PersonThumbnail'
-import axios from 'axios'
 
 class GameScreen extends React.Component {
   constructor(props){
     super(props)
   }
+
   componentDidMount() {
 
   }
 
   render () {
+    const choices = this.props.employeeChoices
     return (
-      <div>
-        <h1>Fill Game Screen Here</h1>
+      <div className="row">
+        {
+          choices && choices.map((choice, idx) => {
+            const name = `${choice.firstName} ${choice.lastName}`
+            const image = choice.headshot.url
+            return (
+              <PersonThumbnail
+                key={choice.id}
+                idx={idx}
+                name={name}
+                image={image}
+                onClick={this.personThumbnailHandler}
+                />
+            )
+        })
+      }
       </div>
     )
   }
 }
 
-export default GameScreen
+function mapStateToProps(storeState) {
+  return {
+    employeeChoices: storeState.employeeChoices
+  }
+}
+
+const GameScreenContainer = connect(mapStateToProps)(GameScreen)
+
+export default GameScreenContainer
