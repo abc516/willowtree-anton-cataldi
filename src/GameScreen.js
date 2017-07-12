@@ -4,15 +4,17 @@ import axios from 'axios'
 
 class GameScreen extends React.Component {
   constructor(props){
-
+    super(props)
   }
   componentDidMount() {
 
   }
 
   render () {
-    return (        })}
-
+    return (
+      <div>
+        <h1>Fill Game Screen Here</h1>
+      </div>
     )
   }
 }
