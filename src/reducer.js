@@ -1,5 +1,10 @@
 import initialState from './initialState'
-import {GET_ALL_EMPLOYEES, SELECT_EMPLOYEE_CHOICES} from './actions'
+import {
+  GET_ALL_EMPLOYEES,
+  SELECT_EMPLOYEE_CHOICES,
+  SELECT_CORRECT_EMPLOYEE_NAME,
+  INCREMENT_CHOICES_MADE
+} from './actions'
 const reducer = (state = initialState, action) => {
   const newState = Object.assign({}, state)
 
@@ -9,6 +14,12 @@ const reducer = (state = initialState, action) => {
     break;
   case SELECT_EMPLOYEE_CHOICES:
     newState.employeeChoices = action.employeeChoices
+    break;
+  case SELECT_CORRECT_EMPLOYEE_NAME:
+    newState.correctEmployeeName = action.correctEmployeeName
+    break;
+  case INCREMENT_CHOICES_MADE:
+    newState.choicesMade++
     break;
   default:
     return state
