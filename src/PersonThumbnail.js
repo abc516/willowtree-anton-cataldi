@@ -57,7 +57,7 @@ const mapStateToProps = (storeState) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {
     incrementChoicesMade
   }

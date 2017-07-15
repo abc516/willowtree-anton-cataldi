@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Router, Route, Redirect, browserHistory} from 'react-router'
-import {connect, Provider} from 'react-redux'
+import { Provider} from 'react-redux'
 import axios from 'axios'
 import store from './store'
 import {getAllEmployees, selectFiveEmployees} from './actions'
@@ -22,13 +22,13 @@ const selectFiveRandomEmployees = employees => {
   return our5
 }
 
-const fetchAllEmployees = nextRouterState => {
+const fetchAllEmployees = () => {
   axios.get('https://willowtreeapps.com/api/v1.0/profiles/')
     .then((response) => response.data.items)
     .then((employees) => store.dispatch(getAllEmployees(employees)))
 }
 
-const selectEmployees = nextRouterState => {
+const selectEmployees = () => {
   const allEmployees = store.getState().allEmployees
   const fiveChosenEmployees = selectFiveRandomEmployees(allEmployees)
   store.dispatch(selectFiveEmployees(fiveChosenEmployees))

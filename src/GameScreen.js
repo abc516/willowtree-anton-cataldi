@@ -22,16 +22,14 @@ class GameScreen extends React.Component {
     return (
       <div className="row">
         {
-          choices && choices.map((choice, idx) => {
+          choices && choices.map((choice) => {
             const name = `${choice.firstName} ${choice.lastName}`
             const image = choice.headshot.url
             return (
               <PersonThumbnailContainer
                 key={choice.id}
-                idx={idx}
                 name={name}
                 image={image}
-                onClick={this.personThumbnailHandler}
                 />
             )
         })
