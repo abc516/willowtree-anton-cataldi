@@ -10,24 +10,18 @@ class PersonThumbnail extends React.Component  {
       clicked: false,
       matchesCorrectPersonName: false
     }
-    this.handler = this.handler.bind(this)
+    this.setClickedAndCheckGuess = this.setClickedAndCheckGuess.bind(this)
+    this.chooseBackgroundColor = this.chooseBackgroundColor.bind(this)
   }
-  handler(){
+  setClickedAndCheckGuess(){
     if (!this.state.clicked){
       this.setState({clicked: true})
       store.dispatch(this.props.incrementChoicesMade())
-      if (this.props.name === this.props.correctEmployeeName){
-        this.setState({matchesCorrectPersonName: true})
-        console.log(`${this.props.name} matches ${this.props.correctEmployeeName}`)
-      }
-      else {
-        this.setState({matchesCorrectPersonName: false})
-        console.log(`${this.props.name} DOESNT match ${this.props.correctEmployeeName}`)
-      }
+      this.setState({matchesCorrectPersonName: this.props.name === this.props.correctEmployeeName})
+      console.log(`Does ${this.props.name} match ${this.props.correctEmployeeName}?: ${this.state.matchesCorrectPersonName}`)
     }
   }
-  render() {
-    const image = `http:${this.props.image}`
+  chooseBackgroundColor(){
     const clicked = this.state.clicked
     const matchesCorrectPersonName = this.state.matchesCorrectPersonName
     const redColor = '#FF0000'
@@ -41,11 +35,16 @@ class PersonThumbnail extends React.Component  {
     else {
       backgroundColor = matchesCorrectPersonName ? greenColor : redColor
     }
+    return backgroundColor
+  }
+  render() {
+    const backgroundColor = this.chooseBackgroundColor()
+    const image = `http:${this.props.image}`
     const style = {backgroundColor}
     console.log('style', style)
     return (
       <div className="col-md-2 ">
-        <img style={style} className="img-responsive" src={image} onClick={this.handler} />
+        <img style={style} className="img-responsive" src={image} onClick={this.setClickedAndCheckGuess} />
       </div>
     )
   }
