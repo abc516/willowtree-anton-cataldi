@@ -15,11 +15,11 @@ import './App.css'
 const selectFiveRandomEmployees = employees => {
   const our5 = []
   const pool = employees
-      while (our5.length < 5) {
-        const randomnumber = Math.ceil(Math.random() * 100)
-        if (our5.indexOf(randomnumber) > -1) continue
-        our5[our5.length] = pool[randomnumber]
-      }
+  while (our5.length < 5) {
+    const randomnumber = Math.ceil(Math.random() * 100)
+    if (our5.indexOf(randomnumber) > -1) continue
+    our5[our5.length] = pool[randomnumber]
+  }
   return our5
 }
 
@@ -30,13 +30,20 @@ const fetchAllEmployees = () => {
 }
 
 const selectEmployees = () => {
-    const allEmployees = store.getState().allEmployees
-    const fiveChosenEmployees = selectFiveRandomEmployees(allEmployees)
-    store.dispatch(selectFiveEmployees(fiveChosenEmployees))
+  axios.get('https://willowtreeapps.com/api/v1.0/profiles/')
+  .then((response) => response.data.items)
+  .then((employees) => store.dispatch(getAllEmployees(employees)))
+  .then(() => {
+   const allEmployees = store.getState().allEmployees
+   const fiveChosenEmployees = selectFiveRandomEmployees(allEmployees)
+   store.dispatch(selectFiveEmployees(fiveChosenEmployees))
+ })
+  // const allEmployees = store.getState().allEmployees
+  // const fiveChosenEmployees = selectFiveRandomEmployees(allEmployees)
+  // store.dispatch(selectFiveEmployees(fiveChosenEmployees))
 }
 
 class App extends Component {
-
   render() {
     return (
       <Provider store={store}>

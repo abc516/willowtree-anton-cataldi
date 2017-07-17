@@ -5,6 +5,7 @@ import PersonThumbnailContainer from './PersonThumbnail'
 import {selectCorrectEmployeeName} from './actions'
 
 const pickRightEmployeeName = (chosenEmployees) => {
+  console.log('chosen employees', chosenEmployees)
     const rightPersonIndex = Math.floor(Math.random() * 5)
     const rightPerson = chosenEmployees[rightPersonIndex]
     const rightPersonName = `${rightPerson.firstName} ${rightPerson.lastName}`
@@ -12,13 +13,23 @@ const pickRightEmployeeName = (chosenEmployees) => {
 }
 
 class GameScreen extends React.Component {
-  componentDidMount() {
-    const correctName = pickRightEmployeeName(this.props.employeeChoices)
-    this.props.selectRightEmployeeName(correctName)
-  }
+  // componentDidMount() {
+  //   // const correctName = pickRightEmployeeName(this.props.employeeChoices)
+  //   // this.props.selectRightEmployeeName(correctName)
+  // }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.employeeChoices.length){
+  //     const correctName = pickRightEmployeeName(this.props.employeeChoices)
+  //     this.props.selectRightEmployeeName(correctName)
+  //   }
+  // }
 
   render () {
     const choices = this.props.employeeChoices
+    if (choices.length){
+      const correctName = pickRightEmployeeName(choices)
+      this.props.selectRightEmployeeName(correctName)
+    }
     return (
       <div className="row">
         {
