@@ -24,27 +24,29 @@ class PersonThumbnail extends React.Component  {
   chooseBackgroundColor(){
     const clicked = this.state.clicked
     const matchesCorrectPersonName = this.state.matchesCorrectPersonName
-    const redColor = '#FF0000'
-    const greenColor = '##90EE90'
-    const defaultColor = '#FFFFFF'
+    // const redColor = '#FF0000'
+    // const greenColor = '##90EE90'
+    // const defaultColor = '#FFFFFF'
     console.log('clicked: ', clicked, 'matchesCorrectPersonName: ', matchesCorrectPersonName)
     let backgroundColor
     if (!clicked){
-      backgroundColor = defaultColor
+      backgroundColor = 'tint-unclicked'//defaultColor
     }
     else {
-      backgroundColor = matchesCorrectPersonName ? greenColor : redColor
+      backgroundColor = matchesCorrectPersonName ? 'tint-correct' /*greenColor*/ : 'tint-incorrect'//redColor
     }
     return backgroundColor
   }
   render() {
     const backgroundColor = this.chooseBackgroundColor()
     const image = `http:${this.props.image}`
-    const style = {backgroundColor}
-    console.log('style', style)
+    // const style = {backgroundColor}
+    // console.log('style', style)
     return (
       <div className="col-md-2 ">
-        <img style={style} className="img-responsive" src={image} onClick={this.setClickedAndCheckGuess} />
+        <figure className={backgroundColor}>
+          <img className="img-responsive" src={image} onClick={this.setClickedAndCheckGuess} />
+        </figure>
       </div>
     )
   }

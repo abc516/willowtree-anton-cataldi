@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import {Router, Route, Redirect, browserHistory} from 'react-router'
+import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import { Provider} from 'react-redux'
 import axios from 'axios'
+
 import store from './store'
 import {getAllEmployees, selectFiveEmployees} from './actions'
-
 import GameScreenContainer from './GameScreen'
 import MainMenu from './MainMenu'
 import OptionsScreen from './OptionsScreen'
 import PersonThumbnail from './PersonThumbnail'
+import Root from './Root'
 import './App.css'
 
 const selectFiveRandomEmployees = employees => {
@@ -29,9 +30,9 @@ const fetchAllEmployees = () => {
 }
 
 const selectEmployees = () => {
-  const allEmployees = store.getState().allEmployees
-  const fiveChosenEmployees = selectFiveRandomEmployees(allEmployees)
-  store.dispatch(selectFiveEmployees(fiveChosenEmployees))
+    const allEmployees = store.getState().allEmployees
+    const fiveChosenEmployees = selectFiveRandomEmployees(allEmployees)
+    store.dispatch(selectFiveEmployees(fiveChosenEmployees))
 }
 
 class App extends Component {
@@ -40,11 +41,13 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/main" component={MainMenu} onEnter={fetchAllEmployees} />
-            <Redirect from ="/" to="/main" />
+          <Route path="/" component={Root} onEnter={fetchAllEmployees}>
+            <Route path="/mainmenu" component={MainMenu} />
+            <IndexRedirect to="/mainmenu" />
             <Route path="/options" component={OptionsScreen} />
             <Route path="/game" component={GameScreenContainer} onEnter={selectEmployees} />
             <Route path="/person" component={PersonThumbnail} />
+          </Route>
         </Router>
       </Provider>
     )
