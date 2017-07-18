@@ -4,8 +4,7 @@ const initialState = {
   correctEmployeeName: '',
   choicesPerRound: 5,
   choicesMade: 0,
-  mattModeEnabled: false,
-  reverseModeEnabled: false
+  mattModeEnabled: false
 }
 
 export default initialState

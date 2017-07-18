@@ -10,37 +10,38 @@ import {
   ENABLE_HARD_MODE,
   DISABLE_HARD_MODE
 } from './actions'
+
 const reducer = (state = initialState, action) => {
   const newState = Object.assign({}, state)
 
   switch (action.type) {
   case GET_ALL_EMPLOYEES:
     newState.allEmployees = action.allEmployees
-    break;
+    break
   case SELECT_EMPLOYEE_CHOICES:
     newState.employeeChoices = action.employeeChoices
-    break;
+    break
   case SELECT_CORRECT_EMPLOYEE_NAME:
     newState.correctEmployeeName = action.correctEmployeeName
-    break;
+    break
   case INCREMENT_CHOICES_MADE:
     newState.choicesMade++
-    break;
+    break
   case RESET_CHOICES_MADE:
     newState.choicesMade = 0
-    break;
+    break
   case ENABLE_MATT_MODE:
     newState.mattModeEnabled = true
-    break;
+    break
   case DISABLE_MATT_MODE:
     newState.mattModeEnabled = false
-    break;
+    break
   case ENABLE_HARD_MODE:
     newState.choicesPerRound = 1
-    break;
+    break
   case DISABLE_HARD_MODE:
     newState.choicesPerRound = 5
-    break;
+    break
   default:
     return state
   }

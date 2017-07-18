@@ -36,12 +36,13 @@ const GameScreen = (props) => {
             })
             }
           </div>
-        : <button onClick={props.resetGuessesMade}>
+        : <button onClick={props.resetGuessesMade} className="btn">
           <Link to="/game">
             Start a new game
           </Link>
         </button> // reset choicesMade on state}
       }
+    <button className="btn"><Link to="/options">Change Game Options</Link></button>
     </div>
   )
 }

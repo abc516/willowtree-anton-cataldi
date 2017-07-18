@@ -31,8 +31,6 @@ class OptionsScreen extends React.Component {
     event.preventDefault();
   }
   render () {
-    const hintModeEnabled = this.state.hintModeEnabled
-    const reverseModeEnabled = this.state.reverseModeEnabled
     const hardModeEnabled = this.state.hardModeEnabled
     const mattModeEnabled = this.state.mattModeEnabled
     return (
