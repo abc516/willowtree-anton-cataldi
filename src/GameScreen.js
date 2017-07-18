@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router'
 import store from './store'
 import PersonThumbnailContainer from './PersonThumbnail'
-import {selectCorrectEmployeeName} from './actions'
+import {selectCorrectEmployeeName, resetChoicesMade} from './actions'
 
 const pickRightEmployeeName = (chosenEmployees) => {
   console.log('chosen employees', chosenEmployees)
@@ -13,25 +14,16 @@ const pickRightEmployeeName = (chosenEmployees) => {
 }
 
 class GameScreen extends React.Component {
-  // componentDidMount() {
-  //   // const correctName = pickRightEmployeeName(this.props.employeeChoices)
-  //   // this.props.selectRightEmployeeName(correctName)
-  // }
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.employeeChoices.length){
-  //     const correctName = pickRightEmployeeName(this.props.employeeChoices)
-  //     this.props.selectRightEmployeeName(correctName)
-  //   }
-  // }
 
   render () {
     const choices = this.props.employeeChoices
+    const guessesLeft = this.props.guessesLeft
     if (choices.length){
       const correctName = pickRightEmployeeName(choices)
       this.props.selectRightEmployeeName(correctName)
     }
     return (
-      <div className="row">
+      guessesLeft ? <div className="row">
         {
           choices && choices.map((choice) => {
             const name = `${choice.firstName} ${choice.lastName}`
@@ -45,25 +37,32 @@ class GameScreen extends React.Component {
             )
         })
       }
-      </div>
+    </div> : <button onClick={this.props.resetGuessesMade}><Link to="/game"> Start a new game </Link></button> // reset choicesMade on state
     )
   }
 }
 
 const mapStateToProps = (storeState) => {
   return {
-    employeeChoices: storeState.employeeChoices
+    employeeChoices: storeState.employeeChoices,
+    guessesLeft: storeState.choicesPerRound - storeState.choicesMade
   }
 }
+
 const selectRightEmployeeName = (name) => {
   store.dispatch(selectCorrectEmployeeName(name))
 }
 
-const mapDispatchToProps = (dispatch) => {
+const resetGuessesMade = () => {
+  store.dispatch(resetChoicesMade())
+}
+const mapDispatchToProps = () => {
   return {
-    selectRightEmployeeName
+    selectRightEmployeeName,
+    resetGuessesMade
   }
 }
+
 
 const GameScreenContainer = connect(mapStateToProps, mapDispatchToProps)(GameScreen)
 

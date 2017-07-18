@@ -7,7 +7,7 @@ import store from './store'
 import {getAllEmployees, selectFiveEmployees} from './actions'
 import GameScreenContainer from './GameScreen'
 import MainMenu from './MainMenu'
-import OptionsScreen from './OptionsScreen'
+import OptionsScreenContainer from './OptionsScreen'
 import PersonThumbnail from './PersonThumbnail'
 import Root from './Root'
 import './App.css'
@@ -38,9 +38,6 @@ const selectEmployees = () => {
    const fiveChosenEmployees = selectFiveRandomEmployees(allEmployees)
    store.dispatch(selectFiveEmployees(fiveChosenEmployees))
  })
-  // const allEmployees = store.getState().allEmployees
-  // const fiveChosenEmployees = selectFiveRandomEmployees(allEmployees)
-  // store.dispatch(selectFiveEmployees(fiveChosenEmployees))
 }
 
 class App extends Component {
@@ -51,7 +48,7 @@ class App extends Component {
           <Route path="/" component={Root} onEnter={fetchAllEmployees}>
             <Route path="/mainmenu" component={MainMenu} />
             <IndexRedirect to="/mainmenu" />
-            <Route path="/options" component={OptionsScreen} />
+            <Route path="/options" component={OptionsScreenContainer} />
             <Route path="/game" component={GameScreenContainer} onEnter={selectEmployees} />
             <Route path="/person" component={PersonThumbnail} />
           </Route>

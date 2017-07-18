@@ -24,9 +24,6 @@ class PersonThumbnail extends React.Component  {
   chooseBackgroundColor(){
     const clicked = this.state.clicked
     const matchesCorrectPersonName = this.state.matchesCorrectPersonName
-    // const redColor = '#FF0000'
-    // const greenColor = '##90EE90'
-    // const defaultColor = '#FFFFFF'
     console.log('clicked: ', clicked, 'matchesCorrectPersonName: ', matchesCorrectPersonName)
     let backgroundColor
     if (!clicked){
@@ -40,8 +37,6 @@ class PersonThumbnail extends React.Component  {
   render() {
     const backgroundColor = this.chooseBackgroundColor()
     const image = `http:${this.props.image}`
-    // const style = {backgroundColor}
-    // console.log('style', style)
     return (
       <div className="col-md-2 ">
         <figure className={backgroundColor}>
