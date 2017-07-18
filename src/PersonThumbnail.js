@@ -18,13 +18,11 @@ class PersonThumbnail extends React.Component  {
       this.setState({clicked: true})
       store.dispatch(this.props.incrementChoicesMade())
       this.setState({matchesCorrectPersonName: this.props.name === this.props.correctEmployeeName})
-      console.log(`Does ${this.props.name} match ${this.props.correctEmployeeName}?: ${this.state.matchesCorrectPersonName}`)
     }
   }
   chooseBackgroundColor(){
     const clicked = this.state.clicked
     const matchesCorrectPersonName = this.state.matchesCorrectPersonName
-    console.log('clicked: ', clicked, 'matchesCorrectPersonName: ', matchesCorrectPersonName)
     let backgroundColor
     if (!clicked){
       backgroundColor = 'tint-unclicked'//defaultColor
@@ -37,10 +35,12 @@ class PersonThumbnail extends React.Component  {
   render() {
     const backgroundColor = this.chooseBackgroundColor()
     const image = `http:${this.props.image}`
+    const name = this.props.name
     return (
       <div className="col-md-2 ">
         <figure className={backgroundColor}>
           <img className="img-responsive" src={image} onClick={this.setClickedAndCheckGuess} />
+          <div className="caption">{name}</div>
         </figure>
       </div>
     )

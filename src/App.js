@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
+import React from 'react'
+import {Router, Route, Redirect, browserHistory} from 'react-router'
 import { Provider} from 'react-redux'
 import axios from 'axios'
 
@@ -9,53 +9,55 @@ import GameScreenContainer from './GameScreen'
 import MainMenu from './MainMenu'
 import OptionsScreenContainer from './OptionsScreen'
 import PersonThumbnail from './PersonThumbnail'
-import Root from './Root'
-import './App.css'
+
+const selectMatts = employees => {
+  return employees.filter((employee) => employee.firstName.includes('Matt'))
+}
 
 const selectFiveRandomEmployees = employees => {
   const our5 = []
   const pool = employees
-  while (our5.length < 5) {
-    const randomnumber = Math.ceil(Math.random() * 100)
-    if (our5.indexOf(randomnumber) > -1) continue
-    our5[our5.length] = pool[randomnumber]
+  //Durstenfeld Shuffle Algorithm
+  for (let i = pool.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let temp = pool[i];
+    pool[i] = pool[j];
+    pool[j] = temp;
+  }
+  //pick the first five employees after shuffling
+  for (let i = 0; i < 5; i++){
+    our5.push(pool[i])
   }
   return our5
 }
 
-const fetchAllEmployees = () => {
-  axios.get('https://willowtreeapps.com/api/v1.0/profiles/')
-    .then((response) => response.data.items)
-    .then((employees) => store.dispatch(getAllEmployees(employees)))
-}
-
+//retreives all employees from API endpoint then selects Five at Random
 const selectEmployees = () => {
   axios.get('https://willowtreeapps.com/api/v1.0/profiles/')
   .then((response) => response.data.items)
   .then((employees) => store.dispatch(getAllEmployees(employees)))
   .then(() => {
    const allEmployees = store.getState().allEmployees
-   const fiveChosenEmployees = selectFiveRandomEmployees(allEmployees)
+   //use following line to filter array for Matt Mode
+   const allEmployeesFiltered = store.getState().mattModeEnabled
+   ? selectMatts(allEmployees) : allEmployees
+   const fiveChosenEmployees = selectFiveRandomEmployees(allEmployeesFiltered)
    store.dispatch(selectFiveEmployees(fiveChosenEmployees))
  })
 }
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router history={browserHistory}>
-          <Route path="/" component={Root} onEnter={fetchAllEmployees}>
-            <Route path="/mainmenu" component={MainMenu} />
-            <IndexRedirect to="/mainmenu" />
-            <Route path="/options" component={OptionsScreenContainer} />
-            <Route path="/game" component={GameScreenContainer} onEnter={selectEmployees} />
-            <Route path="/person" component={PersonThumbnail} />
-          </Route>
-        </Router>
-      </Provider>
-    )
-  }
+const App = () => {
+  return (
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        <Route path="/mainmenu" component={MainMenu} />
+        <Redirect from="/" to="/mainmenu" />
+        <Route path="/options" component={OptionsScreenContainer} />
+        <Route path="/game" component={GameScreenContainer} onEnter={selectEmployees} />
+        <Route path="/person" component={PersonThumbnail} />
+      </Router>
+    </Provider>
+  )
 }
 
 export default App;
