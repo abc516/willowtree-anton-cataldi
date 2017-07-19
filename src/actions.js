@@ -6,7 +6,7 @@ export const RESET_CHOICES_MADE = 'RESET_CHOICES_MADE'
 export const ENABLE_MATT_MODE = 'ENABLE_MATT_MODE'
 export const DISABLE_MATT_MODE = 'DISABLE_MATT_MODE'
 export const ENABLE_HARD_MODE = 'ENABLE_HARD_MODE'
-export const DISABLE_HARD_MODE = 'DISABLE_MATT_MODE'
+export const DISABLE_HARD_MODE = 'DISABLE_HARD_MODE'
 
 export const getAllEmployees = employees => ({
   type: GET_ALL_EMPLOYEES,
