@@ -9,33 +9,23 @@ import {resetChoicesMade} from './actions'
 class GameScreen extends React.Component {
   render() {
     const choices = this.props.employeeChoices
-    const guessesLeft = this.props.guessesLeft
     const correctName = this.props.correctName
     return (
-      <div>
-        {correctName
-          ? <h1 className="page-header">Who is {correctName}</h1>
-          : null
-        }
-        {guessesLeft
-          ? <div className="row">
-              {choices && choices.map((choice) => {
-                const name = `${choice.firstName} ${choice.lastName}`
-                const image = choice.headshot.url
-                return (<PersonThumbnailContainer key={choice.id} name={name} image={image} />)
-              })
-              }
-            </div>
-          : <button onClick={this.props.resetGuessesMade} className="btn">
-            <Link to="/game">
-              Start a new game
-            </Link>
-          </button> // reset choicesMade on state}
-        }
-        <button onClick={this.props.resetGuessesMade} className="btn">
+      correctName ? <div>
+        <h1 className="page-header">Who is {correctName}</h1>
+        <div className="row">
+          {choices && choices.map((choice) => {
+            const name = `${choice.firstName} ${choice.lastName}`
+            const image = choice.headshot.url
+            return (<PersonThumbnailContainer key={choice.id} name={name} image={image} />)
+          })
+          }
+        </div>
+        <button onClick={this.props.resetGuessesMade} title="Refresh page to play again!"
+          className="btn">
           <Link to="/options">Change Game Options</Link>
         </button>
-      </div>
+      </div> : null
     )
   }
 }

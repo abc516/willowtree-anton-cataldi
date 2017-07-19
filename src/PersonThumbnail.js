@@ -15,7 +15,7 @@ class PersonThumbnail extends React.Component  {
     this.chooseBackgroundColor = this.chooseBackgroundColor.bind(this)
   }
   setClickedAndCheckGuess(){
-    if (!this.state.clicked){
+    if (!this.state.clicked && this.props.guessesLeft){
       this.setState({clicked: true})
       store.dispatch(this.props.incrementChoicesMade())
       this.setState({matchesCorrectPersonName: this.props.name === this.props.correctEmployeeName})
@@ -51,7 +51,8 @@ class PersonThumbnail extends React.Component  {
 
 const mapStateToProps = (storeState) => {
   return {
-    correctEmployeeName: storeState.correctEmployeeName
+    correctEmployeeName: storeState.correctEmployeeName,
+    guessesLeft: storeState.choicesPerRound - storeState.choicesMade
   }
 }
 

@@ -32,6 +32,7 @@ class OptionsScreen extends React.Component {
     shouldEnableHardMode ? this.props.enableHardModeOption() : this.props.disableHardModeOption()
     event.preventDefault()
   }
+
   render () {
     const hardModeEnabled = this.state.hardModeEnabled
     const mattModeEnabled = this.state.mattModeEnabled
