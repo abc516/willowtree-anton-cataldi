@@ -4,7 +4,7 @@ import { Provider} from 'react-redux'
 import axios from 'axios'
 
 import store from './store'
-import {getAllEmployees, selectFiveEmployees} from './actions'
+import {getAllEmployees, selectFiveEmployees, selectCorrectEmployeeName} from './actions'
 import GameScreenContainer from './GameScreen'
 import MainMenu from './MainMenu'
 import OptionsScreenContainer from './OptionsScreen'
@@ -31,7 +31,14 @@ const selectFiveRandomEmployees = employees => {
   return our5
 }
 
-//retreives all employees from API endpoint then selects Five at Random
+const pickRightEmployeeName = (chosenEmployees) => {
+  const rightPersonIndex = Math.floor(Math.random() * 5)
+  const rightPerson = chosenEmployees[rightPersonIndex]
+  const rightPersonName = `${rightPerson.firstName} ${rightPerson.lastName}`
+  return rightPersonName
+}
+
+//retreives all employees from API endpoint, selects Five at Random, chooses one
 const selectEmployees = () => {
   axios.get('https://willowtreeapps.com/api/v1.0/profiles/')
   .then((response) => response.data.items)
@@ -43,6 +50,11 @@ const selectEmployees = () => {
    ? selectMatts(allEmployees) : allEmployees
    const fiveChosenEmployees = selectFiveRandomEmployees(allEmployeesFiltered)
    store.dispatch(selectFiveEmployees(fiveChosenEmployees))
+ })
+ .then(() => {
+   const employeeChoices = store.getState().employeeChoices
+   const rightEmployeeName = pickRightEmployeeName(employeeChoices)
+   store.dispatch(selectCorrectEmployeeName(rightEmployeeName))
  })
 }
 
