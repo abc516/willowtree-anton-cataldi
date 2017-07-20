@@ -6,10 +6,10 @@ import store from './store'
 import PersonThumbnailContainer from './PersonThumbnail'
 import {resetChoicesMade} from './actions'
 
-const GameScreen = () => {
+const GameScreen = (props) => {
 
-  const choices = this.props.employeeChoices
-  const correctName = this.props.correctName
+  const choices = props.employeeChoices
+  const correctName = props.correctName
   return (correctName
     ? <div>
         <h1 className="page-header">Who is {correctName}</h1>
@@ -21,7 +21,7 @@ const GameScreen = () => {
           })
 }
         </div>
-        <button onClick={this.props.resetGuessesMade} title="Refresh page to play again!" className="btn">
+        <button onClick={props.resetGuessesMade} title="Refresh page to play again!" className="btn">
           <Link to="/options">Change Game Options</Link>
         </button>
       </div>
