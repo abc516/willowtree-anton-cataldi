@@ -39,10 +39,10 @@ class PersonThumbnail extends React.Component  {
     const name = this.props.name
     const captionClass = this.state.clicked ? 'caption-clicked' : 'caption-unclicked'
     return (
-      <div className="col-md-2 ">
+      <div className="col-md-2 thumbnail">
         <figure className={backgroundColor}>
           <img className="img-responsive" src={image} onClick={this.setClickedAndCheckGuess} />
-          <div className={captionClass}>{name}</div>
+          <p className={captionClass}>{name}</p>
         </figure>
       </div>
     )
