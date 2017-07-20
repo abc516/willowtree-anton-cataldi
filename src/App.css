@@ -1,22 +1,22 @@
 .tint-unclicked {
-    overflow: hidden;
-    float: left;
-    background: blue;
-    margin: 0 20px 20px 0;
+  overflow: hidden;
+  float: left;
+  background: blue;
+  margin: 0 20px 20px 0;
 }
 
 .tint-correct {
-    overflow: hidden;
-    float: left;
-    background: green;
-    margin: 0 20px 20px 0;
+  overflow: hidden;
+  float: left;
+  background: green;
+  margin: 0 20px 20px 0;
 }
 
 .tint-incorrect {
-    overflow: hidden;
-    float: left;
-    background: red;
-    margin: 0 20px 20px 0;
+  overflow: hidden;
+  float: left;
+  background: red;
+  margin: 0 20px 20px 0;
 }
 
 .caption-clicked {
